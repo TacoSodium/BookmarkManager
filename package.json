@@ -1,0 +1,23 @@
+{
+  "name": "webprogrammingbookmarkmanager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node build/index.js",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TacoSodium/bookmarkManager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TacoSodium/bookmarkManager/issues"
+  },
+  "homepage": "https://github.com/TacoSodium/bookmarkManager#readme",
+  "devDependencies": {
+    "typescript": "^3.9.3"
+  }
+}
