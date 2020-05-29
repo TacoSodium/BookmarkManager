@@ -9,14 +9,46 @@
 </head>
 
 <body>
-    <div class="inputContainer">
-        <input id="titleInput" type="text" placeholder="Title">
-        <input id="urlInput" type="text" placeholder="URL">
-        <button id="addBookmarkButton" onclick="addNewBookmark()"><img src="./resources/plus-square-solid.svg"></button>
+    <div class="parent roundCorners">
+        <div class="mainHeading">
+            <h1>My Bookmarks</h1>
+        </div>
+        <div class="inputContainer">
+            <input id="titleInput" class="roundCorners inputDefault" type="text" placeholder="Title">
+            <input id="urlInput" class="roundCorners inputDefault" type="text" placeholder="URL">
+            <button id="addBookmarkButton" onclick="addNewBookmark()"><img
+                    src="./resources/plus-square-solid.png"></button>
+        </div>
     </div>
 
-    <div class="bookmarkContainer">
-
+    <div class="bookmarkContainer roundCorners">
+        <div id="bookmark" class="bookmark roundCorners">
+            <div class="bookmarkHeading">
+                <button class="toggleClass"><img src="./resources/bookmark-solid.png"></button>
+                <h2 class="title">Pokemon Red</h2>
+            </div>
+            <div class="bookmarkURL">
+                <p class="url">https://www.playemulator.com/gb-online/pokemon-red/</p>
+            </div>
+        </div>
+        <div id="bookmark" class="bookmark roundCorners">
+            <div class="bookmarkHeading">
+                <button class="toggleClass"><img src="./resources/bookmark-solid.png"></button>
+                <h2 class="title">w3schools</h2>
+            </div>
+            <div class="bookmarkURL">
+                <p class="url">https://www.w3schools.com/css/default.asp</p>
+            </div>
+        </div>
+        <div id="bookmark" class="bookmark roundCorners">
+            <div class="bookmarkHeading">
+                <button class="toggleClass"><img src="./resources/bookmark-solid.png"></button>
+                <h2 class="title">Down Dog</h2>
+            </div>
+            <div class="bookmarkURL">
+                <p class="url">https://www.downdogapp.com/web</p>
+            </div>
+        </div>
     </div>
 
 </body>
