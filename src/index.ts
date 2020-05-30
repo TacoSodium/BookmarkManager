@@ -4,6 +4,8 @@ let bookmarkContainer = document.getElementById("bookmarkContainer") as HTMLDivE
 let bookmarkDetails = new BookmarkDetails("Prolific");
 let newBookmark = new Bookmark(bookmarkDetails);
 
+let bookmarksList: Bookmark[] = [];
+
 //create bookmark favourite = true
 
 //take user input
@@ -14,11 +16,7 @@ let newBookmark = new Bookmark(bookmarkDetails);
 
 //append bookmark
 newBookmark.spawn(bookmarkContainer);
-
+bookmarksList.push(newBookmark);
 
 //remove bookmark favourite = false
 newBookmark.remove(bookmarkContainer);
-
-//set removal interval .5s
-
-//toggle bookmark image, remove img, add img

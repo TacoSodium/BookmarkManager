@@ -17,6 +17,8 @@ export class BookmarkDetails {
     }
 }
 
+
+
 export class Bookmark {
 
     Bookmark: BookmarkDetails;
@@ -26,6 +28,14 @@ export class Bookmark {
     constructor(newBookmark: BookmarkDetails) {
         this.Bookmark = newBookmark;
         this.Element = document.createElement("div");
+    }
+
+    private Unfavourite() {
+        this.Element.parentElement?.removeChild(this.Element);
+
+        //set removal interval .5s
+
+        //toggle bookmark image, remove img, add img
     }
 
     spawn(id: HTMLDivElement) { 
@@ -38,5 +48,7 @@ export class Bookmark {
         //removes new bookmark
         if (this.Bookmark == null) return;
         id.removeChild(this.Element);
+
+        button.onclick = () => this.Unfavourite();
     }
 }
