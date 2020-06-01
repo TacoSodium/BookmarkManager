@@ -25,41 +25,41 @@ export class Bookmark {
 
     //spawns new bookmark
     Spawn(id: HTMLDivElement) {
-        this.DivElement.classList.add("bookmark", "roundCorners");
-
-        let titleDiv = document.createElement("div");
-        titleDiv.classList.add("bookmarkHeading");
-
-        //create bookmark favourite = true
         let toggleButton = document.createElement("button");
-        toggleButton.classList.add("toggleClass");
         this.FavouriteButton.src = "./resources/bookmark-solid.png";
+        let titleDiv = document.createElement("div");
+        let urlDiv = document.createElement("div");
+        let titleElement = document.createElement("h2");
+        let urlElement = document.createElement("p");
+
+        this.DivElement.classList.add("bookmark", "roundCorners");
+        titleDiv.classList.add("bookmarkHeading");
+        toggleButton.classList.add("toggleClass");
+        titleElement.classList.add("title");
+        urlDiv.classList.add("bookmarkURL");
+        urlElement.classList.add("url");
 
         //appends toggle button
-        toggleButton.appendChild(this.FavouriteButton);
-        this.DivElement.appendChild(toggleButton);
-
-        let titleElement = document.createElement("h2");
-        titleElement.classList.add("title");
+        if (toggleButton !== null) {
+            toggleButton.appendChild(this.FavouriteButton);
+            this.DivElement.appendChild(toggleButton);
+        }
 
         //appends title
         let bookmarkTitle = document.createTextNode(this.Bookmark.Title);
-        titleElement.appendChild(bookmarkTitle);
-        titleDiv.appendChild(titleElement);
-        this.DivElement.appendChild(titleDiv);
-
-        let urlDiv = document.createElement("div");
-        urlDiv.classList.add("bookmarkURL");
-
-        let urlElement = document.createElement("p");
-        urlElement.classList.add("url");
+        if (titleElement !== null && titleDiv !== null) {
+            titleElement.appendChild(bookmarkTitle);
+            titleDiv.appendChild(titleElement);
+            this.DivElement.appendChild(titleDiv);
+        }
 
         //appends url
         let bookmarkURL = document.createTextNode(this.Bookmark.URL);
-        urlElement.appendChild(bookmarkURL);
-        urlDiv.appendChild(urlElement);
-        this.DivElement.appendChild(urlDiv);
-
+        if (urlElement !== null && urlDiv !== null) {
+            urlElement.appendChild(bookmarkURL);
+            urlDiv.appendChild(urlElement);
+            this.DivElement.appendChild(urlDiv);
+        }
 
         //append bookmark
         id.appendChild(this.DivElement);
@@ -67,9 +67,7 @@ export class Bookmark {
 
     private Remove(id: HTMLDivElement) {
         //removes new bookmark
-        if (this.Bookmark == null) {
-            return;
-        } else {
+        if (this.Bookmark !== null) {
             id.removeChild(this.DivElement);
         }
     }
