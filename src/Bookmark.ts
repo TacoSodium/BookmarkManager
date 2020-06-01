@@ -1,10 +1,10 @@
 export class BookmarkDetails {
 
     Favourite: boolean = true;
-    Title: string = "My Bookmark";
-    URL: string = "";
+    Title: Node;
+    URL: Node;
 
-    constructor(title: string, url: string) {
+    constructor(title: Node, url: Node) {
         this.Title = title;
         this.URL = url;
     }
@@ -25,13 +25,16 @@ export class Bookmark {
 
     //spawns new bookmark
     Spawn(id: HTMLDivElement) {
+        // creates elements
         let toggleButton = document.createElement("button");
         this.FavouriteButton.src = "./resources/bookmark-solid.png";
+        
         let titleDiv = document.createElement("div");
         let urlDiv = document.createElement("div");
         let titleElement = document.createElement("h2");
         let urlElement = document.createElement("p");
 
+        // adds classes
         this.DivElement.classList.add("bookmark", "roundCorners");
         titleDiv.classList.add("bookmarkHeading");
         toggleButton.classList.add("toggleClass");
@@ -46,17 +49,15 @@ export class Bookmark {
         }
 
         //appends title
-        let bookmarkTitle = document.createTextNode(this.Bookmark.Title);
         if (titleElement !== null && titleDiv !== null) {
-            titleElement.appendChild(bookmarkTitle);
+            titleElement.appendChild(this.Bookmark.Title);
             titleDiv.appendChild(titleElement);
             this.DivElement.appendChild(titleDiv);
         }
 
         //appends url
-        let bookmarkURL = document.createTextNode(this.Bookmark.URL);
         if (urlElement !== null && urlDiv !== null) {
-            urlElement.appendChild(bookmarkURL);
+            urlElement.appendChild(this.Bookmark.URL);
             urlDiv.appendChild(urlElement);
             this.DivElement.appendChild(urlDiv);
         }
@@ -65,10 +66,11 @@ export class Bookmark {
         id.appendChild(this.DivElement);
     }
 
-    private Remove(id: HTMLDivElement) {
+    private Remove() {
+        let bookmarkContainer = document.getElementById("bookmarkContainer") as HTMLDivElement;
         //removes new bookmark
         if (this.Bookmark !== null) {
-            id.removeChild(this.DivElement);
+            bookmarkContainer.removeChild(this.DivElement);
         }
     }
 
