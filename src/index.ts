@@ -1,22 +1,22 @@
-import {Bookmark, BookmarkDetails} from "./Bookmark";
-
-let bookmarkContainer = document.getElementById("bookmarkContainer") as HTMLDivElement;
-let bookmarkDetails = new BookmarkDetails("Prolific");
-let newBookmark = new Bookmark(bookmarkDetails);
-
+import { Bookmark, BookmarkDetails } from "./Bookmark";
 let bookmarksList: Bookmark[] = [];
 
-//create bookmark favourite = true
+let bookmarkContainer = document.getElementById("bookmarkContainer") as HTMLDivElement;
 
 //take user input
+let titleInput = document.getElementById("titleInput") as HTMLInputElement;
+let urlInput = document.getElementById("urlInput") as HTMLInputElement;
+let newBookmarkDetails = new BookmarkDetails(titleInput.value, urlInput.value);
+let newBookmark = new Bookmark(newBookmarkDetails);
 
-//append title, node required
+const addNewBookmark = () => {
 
-//append url, size contraints
+    //append bookmark
+    newBookmark.Spawn(bookmarkContainer);
+    bookmarksList.push(newBookmark);
 
-//append bookmark
-newBookmark.spawn(bookmarkContainer);
-bookmarksList.push(newBookmark);
+    //toggle bookmark image, remove img, add img
 
-//remove bookmark favourite = false
-newBookmark.remove(bookmarkContainer);
+    //button.onclick = () => this.Unfavourite();
+    newBookmark.Unfavourite();
+}
