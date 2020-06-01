@@ -6,17 +6,18 @@ let bookmarkContainer = document.getElementById("bookmarkContainer") as HTMLDivE
 //take user input
 let titleInput = document.getElementById("titleInput") as HTMLInputElement;
 let urlInput = document.getElementById("urlInput") as HTMLInputElement;
+let addBookmarkButton = document.getElementById("addBookmarkButton") as HTMLButtonElement;
 let newBookmarkDetails = new BookmarkDetails(titleInput.value, urlInput.value);
 let newBookmark = new Bookmark(newBookmarkDetails);
 
-const addNewBookmark = () => {
-
-    //append bookmark
+//creates bookmark
+addBookmarkButton.onclick = () => {
     newBookmark.Spawn(bookmarkContainer);
     bookmarksList.push(newBookmark);
-
-    //toggle bookmark image, remove img, add img
-
-    //button.onclick = () => this.Unfavourite();
-    newBookmark.Unfavourite();
 }
+
+// removes bookmark
+newBookmark.FavouriteButton.addEventListener('click', () => {
+    newBookmark.Unfavourite();
+    bookmarksList.slice
+})
