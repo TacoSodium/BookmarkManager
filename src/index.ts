@@ -13,7 +13,7 @@ let example3Details = new BookmarkDetails("Labanese Garlic Paste", "https://www.
 let example3 = new Bookmark(example3Details);
 example3.Spawn(bookmarkContainer);
 
-var bookmarkList = new Array(example1, example2, example3);
+var bookmarkList = [example1, example2, example3];
 
 addBookmarkButton.onclick = () => {
     //take user input
@@ -27,31 +27,35 @@ addBookmarkButton.onclick = () => {
         let newBookmarkDetails = new BookmarkDetails(titleInput.value, urlInput.value);
         let newBookmark = new Bookmark(newBookmarkDetails);
         newBookmark.Spawn(bookmarkContainer);
-
         bookmarkList.push(newBookmark);
 
         //rest
         urlInput.value = "";
         titleInput.value = "";
+
+        bookmarkList.forEach((bookmark) => {
+            console.log(bookmark.Bookmark.Title)
+        });
     }
-};
+}
 
 // removes bookmark
 for (let i = 0; i < bookmarkList.length; i++) {
+    let intendedBookmark = bookmarkList[i];
 
-    bookmarkList[i].FavouriteButton.onclick = () => {
-        let intendedBookmark = bookmarkList[i];
-        let timer;
-
+    intendedBookmark.FavouriteButton.onclick = () => {
         intendedBookmark.Unfavourite();
 
         //sets and clears timer for removal of bookmark
+        let timer;
+        
         if (intendedBookmark.Bookmark.Favourite == false) {
             timer = setTimeout(() => {
                 intendedBookmark.DivElement.style.display = "none";
                 bookmarkList.splice(i, 1);
-            }, 5000);
-        } else if (intendedBookmark.Bookmark.Favourite == true) {
+            }, 3000);
+        }
+        else if (intendedBookmark.Bookmark.Favourite == true) {
             clearTimeout(timer);
         }
     }

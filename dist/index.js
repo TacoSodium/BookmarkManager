@@ -11,7 +11,7 @@ example2.Spawn(bookmarkContainer);
 let example3Details = new BookmarkDetails("Labanese Garlic Paste", "https://www.broadsheet.com.au/national/food-and-drink/article/recipe-shane-delias-toum-lebanese-garlic-paste");
 let example3 = new Bookmark(example3Details);
 example3.Spawn(bookmarkContainer);
-var bookmarkList = new Array(example1, example2, example3);
+var bookmarkList = [example1, example2, example3];
 addBookmarkButton.onclick = () => {
     //take user input
     let titleInput = document.getElementById("titleInput");
@@ -28,12 +28,15 @@ addBookmarkButton.onclick = () => {
         //rest
         urlInput.value = "";
         titleInput.value = "";
+        bookmarkList.forEach((bookmark) => {
+            console.log(bookmark.Bookmark.Title);
+        });
     }
 };
 // removes bookmark
 for (let i = 0; i < bookmarkList.length; i++) {
-    bookmarkList[i].FavouriteButton.onclick = () => {
-        let intendedBookmark = bookmarkList[i];
+    let intendedBookmark = bookmarkList[i];
+    intendedBookmark.FavouriteButton.onclick = () => {
         let timer;
         intendedBookmark.Unfavourite();
         //sets and clears timer for removal of bookmark
@@ -41,7 +44,7 @@ for (let i = 0; i < bookmarkList.length; i++) {
             timer = setTimeout(() => {
                 intendedBookmark.DivElement.style.display = "none";
                 bookmarkList.splice(i, 1);
-            }, 5000);
+            }, 3000);
         }
         else if (intendedBookmark.Bookmark.Favourite == true) {
             clearTimeout(timer);
