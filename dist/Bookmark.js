@@ -1,17 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Bookmark = exports.BookmarkDetails = void 0;
-class BookmarkDetails {
+export class BookmarkDetails {
     constructor(title, url) {
         this.Favourite = true;
-        this.Title = "My Bookmark";
-        this.URL = "";
         this.Title = title;
         this.URL = url;
     }
 }
-exports.BookmarkDetails = BookmarkDetails;
-class Bookmark {
+export class Bookmark {
     constructor(newBookmark) {
         this.Bookmark = newBookmark;
         this.FavouriteButton = document.createElement("img");
@@ -19,12 +13,14 @@ class Bookmark {
     }
     //spawns new bookmark
     Spawn(id) {
+        // creates elements
         let toggleButton = document.createElement("button");
         this.FavouriteButton.src = "./resources/bookmark-solid.png";
         let titleDiv = document.createElement("div");
         let urlDiv = document.createElement("div");
         let titleElement = document.createElement("h2");
         let urlElement = document.createElement("p");
+        // adds classes
         this.DivElement.classList.add("bookmark", "roundCorners");
         titleDiv.classList.add("bookmarkHeading");
         toggleButton.classList.add("toggleClass");
@@ -37,26 +33,25 @@ class Bookmark {
             this.DivElement.appendChild(toggleButton);
         }
         //appends title
-        let bookmarkTitle = document.createTextNode(this.Bookmark.Title);
         if (titleElement !== null && titleDiv !== null) {
-            titleElement.appendChild(bookmarkTitle);
+            titleElement.appendChild(this.Bookmark.Title);
             titleDiv.appendChild(titleElement);
             this.DivElement.appendChild(titleDiv);
         }
         //appends url
-        let bookmarkURL = document.createTextNode(this.Bookmark.URL);
         if (urlElement !== null && urlDiv !== null) {
-            urlElement.appendChild(bookmarkURL);
+            urlElement.appendChild(this.Bookmark.URL);
             urlDiv.appendChild(urlElement);
             this.DivElement.appendChild(urlDiv);
         }
         //append bookmark
         id.appendChild(this.DivElement);
     }
-    Remove(id) {
+    Remove() {
+        let bookmarkContainer = document.getElementById("bookmarkContainer");
         //removes new bookmark
         if (this.Bookmark !== null) {
-            id.removeChild(this.DivElement);
+            bookmarkContainer.removeChild(this.DivElement);
         }
     }
     // sets and clears timer for removal of bookmark
@@ -76,4 +71,3 @@ class Bookmark {
         }
     }
 }
-exports.Bookmark = Bookmark;
