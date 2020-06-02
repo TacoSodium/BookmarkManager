@@ -4,6 +4,18 @@ export class BookmarkDetails {
         this.Title = title;
         this.URL = url;
     }
+    CutTitle() {
+        if (this.Title.length > 16) {
+            this.Title.slice(-12);
+            this.Title += "...";
+        }
+    }
+    CutURL() {
+        if (this.URL.length > 24) {
+            this.URL.slice(-21);
+            this.URL += "...";
+        }
+    }
 }
 export class Bookmark {
     constructor(newBookmark) {
@@ -34,18 +46,22 @@ export class Bookmark {
         }
         //appends title
         if (titleElement !== null && titleDiv !== null) {
-            titleElement.appendChild(this.Bookmark.Title);
+            let bookmarkTitle = document.createTextNode(this.Bookmark.Title);
+            titleElement.appendChild(bookmarkTitle);
             titleDiv.appendChild(titleElement);
             this.DivElement.appendChild(titleDiv);
         }
         //appends url
         if (urlElement !== null && urlDiv !== null) {
-            urlElement.appendChild(this.Bookmark.URL);
+            let bookmarkURL = document.createTextNode(this.Bookmark.URL);
+            urlElement.appendChild(bookmarkURL);
             urlDiv.appendChild(urlElement);
             this.DivElement.appendChild(urlDiv);
         }
         //append bookmark
         id.appendChild(this.DivElement);
+        this.Bookmark.CutTitle();
+        this.Bookmark.CutURL();
     }
     Remove() {
         let bookmarkContainer = document.getElementById("bookmarkContainer");
@@ -64,7 +80,7 @@ export class Bookmark {
             //set removal interval .5s
             timer = setTimeout(this.Remove, 5000);
         }
-        else if (this.Bookmark.Favourite = false) {
+        else {
             this.Bookmark.Favourite = true;
             this.FavouriteButton.src = "./resources/bookmark-solid.png";
             clearTimeout(timer);

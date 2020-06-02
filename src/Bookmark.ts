@@ -1,12 +1,26 @@
 export class BookmarkDetails {
 
     Favourite: boolean = true;
-    Title: Node;
-    URL: Node;
+    Title: string;
+    URL: string;
 
-    constructor(title: Node, url: Node) {
+    constructor(title: string, url: string) {
         this.Title = title;
         this.URL = url;
+    }
+
+    CutTitle() {
+        if (this.Title.length > 16) {
+            this.Title.slice(-12);
+            this.Title += "...";
+        }
+    }
+
+    CutURL() {
+        if (this.URL.length > 24) {
+            this.URL.slice(-21);
+            this.URL += "...";
+        }
     }
 }
 
@@ -28,7 +42,7 @@ export class Bookmark {
         // creates elements
         let toggleButton = document.createElement("button");
         this.FavouriteButton.src = "./resources/bookmark-solid.png";
-        
+
         let titleDiv = document.createElement("div");
         let urlDiv = document.createElement("div");
         let titleElement = document.createElement("h2");
@@ -50,24 +64,30 @@ export class Bookmark {
 
         //appends title
         if (titleElement !== null && titleDiv !== null) {
-            titleElement.appendChild(this.Bookmark.Title);
+            let bookmarkTitle = document.createTextNode(this.Bookmark.Title);
+            titleElement.appendChild(bookmarkTitle);
             titleDiv.appendChild(titleElement);
             this.DivElement.appendChild(titleDiv);
         }
 
         //appends url
         if (urlElement !== null && urlDiv !== null) {
-            urlElement.appendChild(this.Bookmark.URL);
+            let bookmarkURL = document.createTextNode(this.Bookmark.URL);
+            urlElement.appendChild(bookmarkURL);
             urlDiv.appendChild(urlElement);
             this.DivElement.appendChild(urlDiv);
         }
 
         //append bookmark
         id.appendChild(this.DivElement);
+
+        this.Bookmark.CutTitle();
+        this.Bookmark.CutURL();
     }
 
     private Remove() {
         let bookmarkContainer = document.getElementById("bookmarkContainer") as HTMLDivElement;
+
         //removes new bookmark
         if (this.Bookmark !== null) {
             bookmarkContainer.removeChild(this.DivElement);
@@ -80,15 +100,13 @@ export class Bookmark {
 
         //changes favourite to false and switches img
         if (this.Bookmark.Favourite == true) {
-
             this.Bookmark.Favourite = false;
             this.FavouriteButton.src = "./resources/bookmark-regular.png";
 
             //set removal interval .5s
             timer = setTimeout(this.Remove, 5000);
-        }
-        else if (this.Bookmark.Favourite = false) {
 
+        } else {
             this.Bookmark.Favourite = true;
             this.FavouriteButton.src = "./resources/bookmark-solid.png";
 
