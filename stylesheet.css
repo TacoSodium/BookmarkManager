@@ -132,6 +132,7 @@ p {
 .title {
     flex-grow: 2;
     margin-left: 20px;
+    width: 540px;
 }
 
 .bookmarkURL {
@@ -139,6 +140,12 @@ p {
     margin-left: 30px;
 }
 
-.test {
-    padding-top: 20px;
+.url {
+    width: 607px;
+}
+
+.ellipses {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }

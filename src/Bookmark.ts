@@ -8,20 +8,6 @@ export class BookmarkDetails {
         this.Title = title;
         this.URL = url;
     }
-
-    CutTitle() {
-        if (this.Title.length > 16) {
-            this.Title.slice(-12);
-            this.Title += "...";
-        }
-    }
-
-    CutURL() {
-        if (this.URL.length > 24) {
-            this.URL.slice(-21);
-            this.URL += "...";
-        }
-    }
 }
 
 
@@ -52,9 +38,9 @@ export class Bookmark {
         this.DivElement.classList.add("bookmark", "roundCorners");
         titleDiv.classList.add("bookmarkHeading");
         toggleButton.classList.add("toggleClass");
-        titleElement.classList.add("title");
+        titleElement.classList.add("title", "ellipses");
         urlDiv.classList.add("bookmarkURL");
-        urlElement.classList.add("url");
+        urlElement.classList.add("url", "ellipses");
 
         //appends toggle button
         if (toggleButton !== null) {
@@ -80,21 +66,9 @@ export class Bookmark {
 
         //append bookmark
         id.appendChild(this.DivElement);
-
-        this.Bookmark.CutTitle();
-        this.Bookmark.CutURL();
     }
 
-    private Remove() {
-        let bookmarkContainer = document.getElementById("bookmarkContainer") as HTMLDivElement;
-
-        //removes new bookmark
-        if (this.Bookmark !== null) {
-            bookmarkContainer.removeChild(this.DivElement);
-        }
-    }
-
-    // sets and clears timer for removal of bookmark
+    //sets and clears timer for removal of bookmark
     Unfavourite() {
         let timer;
 
@@ -103,14 +77,19 @@ export class Bookmark {
             this.Bookmark.Favourite = false;
             this.FavouriteButton.src = "./resources/bookmark-regular.png";
 
-            //set removal interval .5s
+            //set removal timer
             timer = setTimeout(this.Remove, 5000);
-
-        } else {
+        }
+        else if (this.Bookmark.Favourite == false) {
             this.Bookmark.Favourite = true;
             this.FavouriteButton.src = "./resources/bookmark-solid.png";
 
             clearTimeout(timer);
         }
+    }
+
+    //removes bookmark
+    private Remove() {
+        this.DivElement.remove();
     }
 }

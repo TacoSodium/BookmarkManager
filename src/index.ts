@@ -9,11 +9,11 @@ example1.Spawn(bookmarkContainer);
 let example2Details = new BookmarkDetails("w3schools", "https://www.w3schools.com/css/default.asp");
 let example2 = new Bookmark(example2Details);
 example2.Spawn(bookmarkContainer);
-let example3Details = new BookmarkDetails("Down Dog", "https://www.downdogapp.com/web");
+let example3Details = new BookmarkDetails("Labanese Garlic Paste", "https://www.broadsheet.com.au/national/food-and-drink/article/recipe-shane-delias-toum-lebanese-garlic-paste");
 let example3 = new Bookmark(example3Details);
 example3.Spawn(bookmarkContainer);
 
-var bookmarkList = new Array(example1Details.URL, example2Details.URL, example1Details.URL);
+var bookmarkList = new Array(example1, example2, example3);
 
 addBookmarkButton.onclick = () => {
     //take user input
@@ -28,7 +28,7 @@ addBookmarkButton.onclick = () => {
         let newBookmark = new Bookmark(newBookmarkDetails);
         newBookmark.Spawn(bookmarkContainer);
 
-        bookmarkList.push(newBookmark.Bookmark.URL);
+        bookmarkList.push(newBookmark);
 
         //rest
         urlInput.value = "";
@@ -37,6 +37,11 @@ addBookmarkButton.onclick = () => {
 };
 
 // removes bookmark
-// toggleButton.onclick = () => {
+for (let i = 0; i < bookmarkList.length; i++) {
 
-// }
+    bookmarkList[i].FavouriteButton.onclick = () => {
+        let intendedBookmark = bookmarkList[i];
+
+        intendedBookmark.Unfavourite();
+    }
+}
