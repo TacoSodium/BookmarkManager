@@ -41,7 +41,18 @@ for (let i = 0; i < bookmarkList.length; i++) {
 
     bookmarkList[i].FavouriteButton.onclick = () => {
         let intendedBookmark = bookmarkList[i];
+        let timer;
 
         intendedBookmark.Unfavourite();
+
+        //sets and clears timer for removal of bookmark
+        if (intendedBookmark.Bookmark.Favourite == false) {
+            timer = setTimeout(() => {
+                intendedBookmark.DivElement.style.display = "none";
+                bookmarkList.splice(i, 1);
+            }, 5000);
+        } else if (intendedBookmark.Bookmark.Favourite == true) {
+            clearTimeout(timer);
+        }
     }
 }

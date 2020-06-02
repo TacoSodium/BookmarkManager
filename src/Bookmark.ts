@@ -68,28 +68,15 @@ export class Bookmark {
         id.appendChild(this.DivElement);
     }
 
-    //sets and clears timer for removal of bookmark
+    //toggles favourite
     Unfavourite() {
-        let timer;
-
-        //changes favourite to false and switches img
         if (this.Bookmark.Favourite == true) {
             this.Bookmark.Favourite = false;
             this.FavouriteButton.src = "./resources/bookmark-regular.png";
-
-            //set removal timer
-            timer = setTimeout(this.Remove, 5000);
         }
         else if (this.Bookmark.Favourite == false) {
             this.Bookmark.Favourite = true;
             this.FavouriteButton.src = "./resources/bookmark-solid.png";
-
-            clearTimeout(timer);
         }
-    }
-
-    //removes bookmark
-    private Remove() {
-        this.DivElement.remove();
     }
 }
