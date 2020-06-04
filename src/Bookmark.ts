@@ -4,14 +4,25 @@ export class Bookmark extends HTMLElement {
     Title: string = "";
     URL: string = "";
 
-    ButtonImage: HTMLImageElement;
-    Bookmark: HTMLDivElement;
+    set bookmarktitle(title: string) {
+        this.Title = title;
+        this._updateRendering();
+    }
 
-    constructor(title: string, url: string) {
+    set bookmarkurl(url: string) {
+        this.URL = url;
+        this._updateRendering();
+    }
+
+    ButtonImage: HTMLImageElement;
+    private _titleElement: HTMLHeadingElement | null;
+    private _urlElement: HTMLParagraphElement | null;
+    
+    constructor() {
         super();
+        console.log("Created Bookmark")
         //creates encompasing div
-        this.Bookmark = document.createElement("div");
-        this.Bookmark.classList.add("bookmark", "roundCorners");
+        this.classList.add("bookmark", "roundCorners");
 
         //creates toggle button
         this.ButtonImage = document.createElement("img");
@@ -22,13 +33,14 @@ export class Bookmark extends HTMLElement {
         //appends toggle button
         if (toggleButton !== null) {
             toggleButton.appendChild(this.ButtonImage);
-            this.Bookmark.appendChild(toggleButton);
+            this.appendChild(toggleButton);
         }
 
         //creates title
         let titleDiv = document.createElement("div");
         titleDiv.classList.add("bookmarkHeading");
         let titleElement = document.createElement("h2");
+        this._titleElement = titleElement;
         titleElement.classList.add("title", "ellipses");
 
         //appends title
@@ -36,13 +48,14 @@ export class Bookmark extends HTMLElement {
             let bookmarkTitle = document.createTextNode(this.Title);
             titleElement.appendChild(bookmarkTitle);
             titleDiv.appendChild(titleElement);
-            this.Bookmark.appendChild(titleDiv);
+            this.appendChild(titleDiv);
         }
 
         //creates url
         let urlDiv = document.createElement("div");
         urlDiv.classList.add("bookmarkURL");
         let urlElement = document.createElement("p");
+        this._urlElement = urlElement;
         urlElement.classList.add("url", "ellipses");
 
         //appends url
@@ -50,13 +63,21 @@ export class Bookmark extends HTMLElement {
             let bookmarkURL = document.createTextNode(this.URL);
             urlElement.appendChild(bookmarkURL);
             urlDiv.appendChild(urlElement);
-            this.Bookmark.appendChild(urlDiv);
+            this.appendChild(urlDiv);
         }
     }
 
-    static get observedAttributes() { return []; };
+    static get observedAttributes() { return ["bookmarktitle", "bookmarkurl"]; };
 
     attributeChangedCallback(name: string, newValue: string, oldValue: string) {
+
+        if (name == "bookmarktitle") {
+            this.bookmarktitle = newValue;
+        }
+
+        if (name == "bookmarkurl") {
+            this.bookmarkurl = newValue;
+        }
 
         this._updateRendering();
     }
@@ -66,10 +87,16 @@ export class Bookmark extends HTMLElement {
     }
 
     _updateRendering() {
-
+        if (this._titleElement == null)return;
+        let bookmarkTitle = document.createTextNode(this.Title);
+        this._titleElement.appendChild(bookmarkTitle);
+        
+        if(this._urlElement == null) return;
+        let bookmarkURL = document.createTextNode(this.URL);
+        this._urlElement.appendChild(bookmarkURL);
     }
 
-    //toggles favourite
+    //toggles image
     Unfavourite() {
         if (this.Favourite == true) {
             this.Favourite = false;

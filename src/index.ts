@@ -1,15 +1,22 @@
-import { Bookmark } from "./Bookmark.js";
+import { Bookmark } from "./Bookmark";
 customElements.define("new-bookmark", Bookmark);
 
 let bookmarkContainer = document.getElementById("bookmarkContainer") as HTMLDivElement;
 let addBookmarkButton = document.getElementById("addBookmarkButton") as HTMLButtonElement;
 
+
 //default bookmarks
-const example1 = new Bookmark("Pokemon Red" ,"https://www.playemulator.com/gb-online/pokemon-red/");
+const example1 = new Bookmark();
+example1.bookmarktitle = "Pokemon Red";
+example1.bookmarkurl = "https://www.playemulator.com/gb-online/pokemon-red/";
 bookmarkContainer.appendChild(example1);
-const example2 = new Bookmark("w3schools", "https://www.w3schools.com/css/default.asp");
+const example2 = new Bookmark();
+example2.bookmarktitle = "w3schools";
+example2.bookmarkurl = "https://www.w3schools.com/css/default.asp";
 bookmarkContainer.appendChild(example2);
-const example3 = new Bookmark("Labanese Garlic Paste", "https://www.broadsheet.com.au/national/food-and-drink/article/recipe-shane-delias-toum-lebanese-garlic-paste");
+const example3 = new Bookmark();
+example2.bookmarktitle = "Labanese Garlic Paste";
+example2.bookmarkurl = "https://www.broadsheet.com.au/national/food-and-drink/article/recipe-shane-delias-toum-lebanese-garlic-paste";
 bookmarkContainer.appendChild(example3);
 
 var bookmarkList = [example1, example2, example3];
@@ -23,7 +30,9 @@ addBookmarkButton.onclick = () => {
         alert("Your bookmark is missing some details");
     } else {
         //creates bookmark
-        const newBookmark = new Bookmark(titleInput.value, urlInput.value);
+        const newBookmark = new Bookmark();
+        newBookmark.bookmarktitle = titleInput.value;
+        newBookmark.bookmarkurl = urlInput.value;
         bookmarkContainer.appendChild(newBookmark);
         bookmarkList.push(newBookmark);
 
@@ -49,7 +58,7 @@ for (let i = 0; i < bookmarkList.length; i++) {
         
         if (intendedBookmark.Favourite == false) {
             timer = setTimeout(() => {
-                intendedBookmark.Bookmark.style.display = "none";
+                intendedBookmark.style.display = "none";
                 bookmarkList.splice(i, 1);
             }, 3000);
         }

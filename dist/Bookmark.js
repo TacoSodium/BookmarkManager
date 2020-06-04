@@ -1,12 +1,12 @@
-export class Bookmark extends HTMLElement {
-    constructor(title, url) {
+export class Bookmark extends HTMLDivElement {
+    constructor() {
         super();
         this.Favourite = true;
         this.Title = "";
         this.URL = "";
         //creates encompasing div
-        this.Bookmark = document.createElement("div");
-        this.Bookmark.classList.add("bookmark", "roundCorners");
+        //this.Bookmark = document.createElement("div");
+        this.classList.add("bookmark", "roundCorners");
         //creates toggle button
         this.ButtonImage = document.createElement("img");
         this.ButtonImage.src = "./resources/bookmark-solid.png";
@@ -15,7 +15,7 @@ export class Bookmark extends HTMLElement {
         //appends toggle button
         if (toggleButton !== null) {
             toggleButton.appendChild(this.ButtonImage);
-            this.Bookmark.appendChild(toggleButton);
+            this.appendChild(toggleButton);
         }
         //creates title
         let titleDiv = document.createElement("div");
@@ -27,7 +27,7 @@ export class Bookmark extends HTMLElement {
             let bookmarkTitle = document.createTextNode(this.Title);
             titleElement.appendChild(bookmarkTitle);
             titleDiv.appendChild(titleElement);
-            this.Bookmark.appendChild(titleDiv);
+            this.appendChild(titleDiv);
         }
         //creates url
         let urlDiv = document.createElement("div");
@@ -39,12 +39,24 @@ export class Bookmark extends HTMLElement {
             let bookmarkURL = document.createTextNode(this.URL);
             urlElement.appendChild(bookmarkURL);
             urlDiv.appendChild(urlElement);
-            this.Bookmark.appendChild(urlDiv);
+            this.appendChild(urlDiv);
         }
     }
-    static get observedAttributes() { return []; }
+    set bookmarkTitle(title) {
+        this.Title = title;
+    }
+    set bookmarkURL(url) {
+        this.URL = url;
+    }
+    static get observedAttributes() { return ["bookmarkTitle", "bookmarkURL"]; }
     ;
     attributeChangedCallback(name, newValue, oldValue) {
+        if (name == "bookmarkTitle") {
+            this.bookmarkTitle = newValue;
+        }
+        if (name == "bookmarkURL") {
+            this.bookmarkURL = newValue;
+        }
         this._updateRendering();
     }
     connectedCallBack() {
@@ -52,7 +64,7 @@ export class Bookmark extends HTMLElement {
     }
     _updateRendering() {
     }
-    //toggles favourite
+    //toggles image
     Unfavourite() {
         if (this.Favourite == true) {
             this.Favourite = false;
