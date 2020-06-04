@@ -6,7 +6,6 @@ export class Bookmark extends HTMLElement {
 
     set bookmarktitle(title: string) {
         this.Title = title;
-        this._updateRendering();
     }
 
     set bookmarkurl(url: string) {
@@ -17,16 +16,22 @@ export class Bookmark extends HTMLElement {
     ButtonImage: HTMLImageElement;
     private _titleElement: HTMLHeadingElement | null;
     private _urlElement: HTMLParagraphElement | null;
-    
+    RemoveBookmark: Function | null = null;
+
     constructor() {
         super();
         console.log("Created Bookmark")
-        //creates encompasing div
+
         this.classList.add("bookmark", "roundCorners");
 
         //creates toggle button
         this.ButtonImage = document.createElement("img");
         this.ButtonImage.src = "./resources/bookmark-solid.png";
+        this.ButtonImage.onclick = () => {
+            if (this.ButtonImage == null) return;
+            this.Unfavourite();
+        }
+
         let toggleButton = document.createElement("button");
         toggleButton.classList.add("toggleClass");
 
@@ -87,22 +92,31 @@ export class Bookmark extends HTMLElement {
     }
 
     _updateRendering() {
-        if (this._titleElement == null)return;
+        if (this._titleElement == null) return;
         let bookmarkTitle = document.createTextNode(this.Title);
         this._titleElement.appendChild(bookmarkTitle);
-        
-        if(this._urlElement == null) return;
+
+        if (this._urlElement == null) return;
         let bookmarkURL = document.createTextNode(this.URL);
         this._urlElement.appendChild(bookmarkURL);
     }
 
     //toggles image
     Unfavourite() {
+        var timer = 0;
+
         if (this.Favourite == true) {
             this.Favourite = false;
             this.ButtonImage.src = "./resources/bookmark-regular.png";
+
+            timer = setTimeout(() => {
+                if (this.RemoveBookmark == null) return;
+                this.RemoveBookmark();
+            }, 3000);
         }
         else if (this.Favourite == false) {
+            clearTimeout(timer);
+            
             this.Favourite = true;
             this.ButtonImage.src = "./resources/bookmark-solid.png";
         }
