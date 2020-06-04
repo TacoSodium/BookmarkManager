@@ -1,17 +1,16 @@
-import { Bookmark, BookmarkDetails } from "./Bookmark.js";
+import { Bookmark } from "./Bookmark.js";
+customElements.define("new-bookmark", Bookmark);
+
 let bookmarkContainer = document.getElementById("bookmarkContainer") as HTMLDivElement;
 let addBookmarkButton = document.getElementById("addBookmarkButton") as HTMLButtonElement;
 
 //default bookmarks
-let example1Details = new BookmarkDetails("Pokemon Red", "https://www.playemulator.com/gb-online/pokemon-red/");
-let example1 = new Bookmark(example1Details);
-example1.Spawn(bookmarkContainer);
-let example2Details = new BookmarkDetails("w3schools", "https://www.w3schools.com/css/default.asp");
-let example2 = new Bookmark(example2Details);
-example2.Spawn(bookmarkContainer);
-let example3Details = new BookmarkDetails("Labanese Garlic Paste", "https://www.broadsheet.com.au/national/food-and-drink/article/recipe-shane-delias-toum-lebanese-garlic-paste");
-let example3 = new Bookmark(example3Details);
-example3.Spawn(bookmarkContainer);
+const example1 = new Bookmark("Pokemon Red" ,"https://www.playemulator.com/gb-online/pokemon-red/");
+bookmarkContainer.appendChild(example1);
+const example2 = new Bookmark("w3schools", "https://www.w3schools.com/css/default.asp");
+bookmarkContainer.appendChild(example2);
+const example3 = new Bookmark("Labanese Garlic Paste", "https://www.broadsheet.com.au/national/food-and-drink/article/recipe-shane-delias-toum-lebanese-garlic-paste");
+bookmarkContainer.appendChild(example3);
 
 var bookmarkList = [example1, example2, example3];
 
@@ -24,9 +23,8 @@ addBookmarkButton.onclick = () => {
         alert("Your bookmark is missing some details");
     } else {
         //creates bookmark
-        let newBookmarkDetails = new BookmarkDetails(titleInput.value, urlInput.value);
-        let newBookmark = new Bookmark(newBookmarkDetails);
-        newBookmark.Spawn(bookmarkContainer);
+        const newBookmark = new Bookmark(titleInput.value, urlInput.value);
+        bookmarkContainer.appendChild(newBookmark);
         bookmarkList.push(newBookmark);
 
         //rest
@@ -34,7 +32,7 @@ addBookmarkButton.onclick = () => {
         titleInput.value = "";
 
         bookmarkList.forEach((bookmark) => {
-            console.log(bookmark.Bookmark.Title)
+            console.log(bookmark.Title)
         });
     }
 }
@@ -43,19 +41,19 @@ addBookmarkButton.onclick = () => {
 for (let i = 0; i < bookmarkList.length; i++) {
     let intendedBookmark = bookmarkList[i];
 
-    intendedBookmark.FavouriteButton.onclick = () => {
+    intendedBookmark.ButtonImage.onclick = () => {
         intendedBookmark.Unfavourite();
 
         //sets and clears timer for removal of bookmark
         let timer;
         
-        if (intendedBookmark.Bookmark.Favourite == false) {
+        if (intendedBookmark.Favourite == false) {
             timer = setTimeout(() => {
-                intendedBookmark.DivElement.style.display = "none";
+                intendedBookmark.Bookmark.style.display = "none";
                 bookmarkList.splice(i, 1);
             }, 3000);
         }
-        else if (intendedBookmark.Bookmark.Favourite == true) {
+        else if (intendedBookmark.Favourite == true) {
             clearTimeout(timer);
         }
     }

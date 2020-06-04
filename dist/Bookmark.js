@@ -1,63 +1,66 @@
-export class BookmarkDetails {
+export class Bookmark extends HTMLElement {
     constructor(title, url) {
+        super();
         this.Favourite = true;
-        this.Title = title;
-        this.URL = url;
-    }
-}
-export class Bookmark {
-    constructor(newBookmark) {
-        this.Bookmark = newBookmark;
-        this.FavouriteButton = document.createElement("img");
-        this.DivElement = document.createElement("div");
-    }
-    //spawns new bookmark
-    Spawn(id) {
-        // creates elements
+        this.Title = "";
+        this.URL = "";
+        //creates encompasing div
+        this.Bookmark = document.createElement("div");
+        this.Bookmark.classList.add("bookmark", "roundCorners");
+        //creates toggle button
+        this.ButtonImage = document.createElement("img");
+        this.ButtonImage.src = "./resources/bookmark-solid.png";
         let toggleButton = document.createElement("button");
-        this.FavouriteButton.src = "./resources/bookmark-solid.png";
-        let titleDiv = document.createElement("div");
-        let urlDiv = document.createElement("div");
-        let titleElement = document.createElement("h2");
-        let urlElement = document.createElement("p");
-        // adds classes
-        this.DivElement.classList.add("bookmark", "roundCorners");
-        titleDiv.classList.add("bookmarkHeading");
         toggleButton.classList.add("toggleClass");
-        titleElement.classList.add("title", "ellipses");
-        urlDiv.classList.add("bookmarkURL");
-        urlElement.classList.add("url", "ellipses");
         //appends toggle button
         if (toggleButton !== null) {
-            toggleButton.appendChild(this.FavouriteButton);
-            this.DivElement.appendChild(toggleButton);
+            toggleButton.appendChild(this.ButtonImage);
+            this.Bookmark.appendChild(toggleButton);
         }
+        //creates title
+        let titleDiv = document.createElement("div");
+        titleDiv.classList.add("bookmarkHeading");
+        let titleElement = document.createElement("h2");
+        titleElement.classList.add("title", "ellipses");
         //appends title
         if (titleElement !== null && titleDiv !== null) {
-            let bookmarkTitle = document.createTextNode(this.Bookmark.Title);
+            let bookmarkTitle = document.createTextNode(this.Title);
             titleElement.appendChild(bookmarkTitle);
             titleDiv.appendChild(titleElement);
-            this.DivElement.appendChild(titleDiv);
+            this.Bookmark.appendChild(titleDiv);
         }
+        //creates url
+        let urlDiv = document.createElement("div");
+        urlDiv.classList.add("bookmarkURL");
+        let urlElement = document.createElement("p");
+        urlElement.classList.add("url", "ellipses");
         //appends url
         if (urlElement !== null && urlDiv !== null) {
-            let bookmarkURL = document.createTextNode(this.Bookmark.URL);
+            let bookmarkURL = document.createTextNode(this.URL);
             urlElement.appendChild(bookmarkURL);
             urlDiv.appendChild(urlElement);
-            this.DivElement.appendChild(urlDiv);
+            this.Bookmark.appendChild(urlDiv);
         }
-        //append bookmark
-        id.appendChild(this.DivElement);
+    }
+    static get observedAttributes() { return []; }
+    ;
+    attributeChangedCallback(name, newValue, oldValue) {
+        this._updateRendering();
+    }
+    connectedCallBack() {
+        this._updateRendering();
+    }
+    _updateRendering() {
     }
     //toggles favourite
     Unfavourite() {
-        if (this.Bookmark.Favourite == true) {
-            this.Bookmark.Favourite = false;
-            this.FavouriteButton.src = "./resources/bookmark-regular.png";
+        if (this.Favourite == true) {
+            this.Favourite = false;
+            this.ButtonImage.src = "./resources/bookmark-regular.png";
         }
-        else if (this.Bookmark.Favourite == false) {
-            this.Bookmark.Favourite = true;
-            this.FavouriteButton.src = "./resources/bookmark-solid.png";
+        else if (this.Favourite == false) {
+            this.Favourite = true;
+            this.ButtonImage.src = "./resources/bookmark-solid.png";
         }
     }
 }
