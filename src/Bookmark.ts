@@ -13,6 +13,7 @@ export class Bookmark extends HTMLElement {
         this._updateRendering();
     }
 
+    Timer: number = 0;
     ButtonImage: HTMLImageElement;
     private _titleElement: HTMLHeadingElement | null;
     private _urlElement: HTMLParagraphElement | null;
@@ -20,8 +21,6 @@ export class Bookmark extends HTMLElement {
 
     constructor() {
         super();
-        console.log("Created Bookmark")
-
         this.classList.add("bookmark", "roundCorners");
 
         //creates toggle button
@@ -103,20 +102,19 @@ export class Bookmark extends HTMLElement {
 
     //toggles image
     Unfavourite() {
-        var timer = 0;
 
         if (this.Favourite == true) {
-            this.Favourite = false;
-            this.ButtonImage.src = "./resources/bookmark-regular.png";
-
-            timer = setTimeout(() => {
+            this.Timer = setTimeout(() => {
                 if (this.RemoveBookmark == null) return;
                 this.RemoveBookmark();
             }, 3000);
+
+            this.Favourite = false;
+            this.ButtonImage.src = "./resources/bookmark-regular.png";
         }
         else if (this.Favourite == false) {
-            clearTimeout(timer);
-            
+            clearTimeout(this.Timer);
+
             this.Favourite = true;
             this.ButtonImage.src = "./resources/bookmark-solid.png";
         }

@@ -12,9 +12,11 @@ example1.bookmarkurl = "https://www.playemulator.com/gb-online/pokemon-red/";
 //removes bookmark
 example1.RemoveBookmark = () => {
     bookmarkContainer.removeChild(example1);
-
     for (let i = 0; i < bookmarkList.length; i++) {
-        bookmarkList.splice(i, 1);
+        if (bookmarkList[i] == example1) {
+            bookmarkList.splice(i, 1);
+            break;
+        }
     }
 }
 bookmarkContainer.appendChild(example1);
@@ -25,9 +27,11 @@ example2.bookmarkurl = "https://www.w3schools.com/css/default.asp";
 //removes bookmark
 example2.RemoveBookmark = () => {
     bookmarkContainer.removeChild(example2);
-
     for (let i = 0; i < bookmarkList.length; i++) {
-        bookmarkList.splice(i, 1);
+        if (bookmarkList[i] == example2) {
+            bookmarkList.splice(i, 1);
+            break;
+        }
     }
 }
 bookmarkContainer.appendChild(example2);
@@ -38,9 +42,11 @@ example3.bookmarkurl = "https://www.broadsheet.com.au/national/food-and-drink/ar
 //removes bookmark
 example3.RemoveBookmark = () => {
     bookmarkContainer.removeChild(example3);
-
     for (let i = 0; i < bookmarkList.length; i++) {
-        bookmarkList.splice(i, 1);
+        if (bookmarkList[i] == example3) {
+            bookmarkList.splice(i, 1);
+            break;
+        }
     }
 }
 bookmarkContainer.appendChild(example3);
@@ -65,7 +71,10 @@ addBookmarkButton.onclick = () => {
             bookmarkContainer.removeChild(newBookmark);
 
             for (let i = 0; i < bookmarkList.length; i++) {
-                bookmarkList.splice(i, 1);
+                if (bookmarkList[i] == newBookmark) {
+                    bookmarkList.splice(i, 1);
+                    break;
+                }
             }
         }
 
@@ -77,7 +86,3 @@ addBookmarkButton.onclick = () => {
         titleInput.value = "";
     }
 }
-
-bookmarkList.forEach((bookmark) => {
-    console.log(bookmark.Title);
-})
